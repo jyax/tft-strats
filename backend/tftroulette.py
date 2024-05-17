@@ -14,10 +14,13 @@ Returns:
 class TFTRoulette:
     
     
-    def __init__(self, api_key):
+    def __init__(self, api_key, data_path):
         
         self.tft = TftWatcher(api_key)
         self.game_version = self.get_latest_game_version()
+        self.data_path = data_path
+        
+        self.data = self.get_all_names() # Contains Routing for all TFT Data
         
         
     def get_latest_game_version(self):
@@ -32,9 +35,38 @@ class TFTRoulette:
         response = requests.get(url)
         return response.json()[0]
     
+    
+    
     #
     # Data
     #
+    
+    def get_file_data(self, data_path, data_type, file_name):
+        """
+        Gets the JSON data for a specific TFT data type from the Riot CDN.
+
+        Args:
+            data_type (str): Type of TFT data to fetch
+
+        Returns:
+            dict: JSON data fetched from URL
+        """
+
+        with open("{data_path}/{data_type}/{file_name}.json") as f:
+            return json.load(f)
+        
+        
+    def get_all_names(self, data_path):
+        """
+        Gets all TFT data types from current saved data.
+
+        Returns:
+            dict: JSON data fetched from current data.
+        """
+        
+        
+        return file_names
+    
     
     def save_json_data(self, data, filename):
         """
@@ -60,9 +92,9 @@ def main():
     cfg = toml.load("config.toml")
     riot_api_key = cfg["api"]["riot_api_key"]
     
-    tftr = TFTRoulette(riot_api_key)
-    version = tftr.game_version
+    tftr = TFTRoulette(api_key=riot_api_key, data_path=data_path)
     
+    version = tftr.game_version
     print("Current Game Version: {version}")
     
     files = ['tft-augments', 'tft-champions', 'tft-items', 'tft-region-portals', 'tft-traits']
