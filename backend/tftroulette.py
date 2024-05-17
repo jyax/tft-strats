@@ -2,7 +2,7 @@ import os
 import requests, toml, json
 from riotwatcher import TftWatcher
 
-from backend.utils.ddragon_utils import get_tft_json
+from utils.ddragon_utils import get_tft_json
 
 
 """
@@ -20,7 +20,7 @@ class TFTRoulette:
         self.game_version = self.get_latest_game_version()
         
         
-    def get_latest_game_version():
+    def get_latest_game_version(self):
         """
         Pulls the latest game version from the Riot API.
 
@@ -36,7 +36,7 @@ class TFTRoulette:
     # Data
     #
     
-    def save_json_data(data, filename):
+    def save_json_data(self, data, filename):
         """
         Saves JSON data to a file.
 
