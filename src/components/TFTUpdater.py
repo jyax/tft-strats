@@ -1,7 +1,10 @@
-import json, requests, os
+import json, requests, os, sys
+
+sys.path.append("C:/Users/jtyax/Desktop/git/tft-roulette/src")
 
 from utils.ddragon_utils import get_tft_json, get_latest_static_files
-import utils.cdragon_utils as cdu
+
+from utils.cdragon_utils import get_cdragon_data
 
 class TFTUpdater:
     """
@@ -51,7 +54,7 @@ class TFTUpdater:
         """
         
         url = "https://ddragon.leagueoflegends.com/api/versions.json"
-        response = requests.get(url, headers=headers)
+        response = requests.get(url)
         return response.json()[0]
         
         

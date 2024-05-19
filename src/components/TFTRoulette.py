@@ -2,6 +2,7 @@ import os
 import requests, toml, json
 from riotwatcher import TftWatcher
 
+
 from TFTUpdater import TFTUpdater
 
 """
@@ -24,21 +25,18 @@ class TFTRoulette:
         self.data = self.updater.get_all_names() # Contains Routing for all TFT Data
         
     
+    
+    
     #
     # Data
     #
+    
     
     def get_files(self):
         """
         Get all TFT Data Files
         """
         self.updater.update()
-    
-    def get_latest_version(self):
-        """
-        Get the latest game version
-        """
-        return self.updater.get_latest_game_version()
     
     
         
@@ -51,7 +49,7 @@ def main():
     Main function for API call testing.
     """
     
-    data_path = "./backend/data/"
+    data_path = "./src/data/"
     download_path = data_path + "tars/"
     extract_path = data_path + "source_files/"
     paths = {
@@ -66,7 +64,7 @@ def main():
     
     tftr = TFTRoulette(api_key=riot_api_key, paths=paths)
     
-    version = tftr.get_latest_version()
+    version = tftr.game_version
     print(f"Current Game Version: {version}")
     
     tftr.get_files()
