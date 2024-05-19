@@ -1,3 +1,5 @@
 .idea
 .vscode
 config.toml
+./backend/__pycache__
+./backend/utils/__pycache__
