@@ -1,5 +1,9 @@
-import requests
+import requests, tarfile, json
 
+
+headers = {
+    'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
+    }
 
 def get_tft_json(version, file):
     """
@@ -12,7 +16,10 @@ def get_tft_json(version, file):
     Returns:
         dict: JSON data fetched from URL
     """
-    url = f"https://ddragon.leagueoflegends.com/cdn/{version}/data/en_us/{file}.json"
+    url = f"https://ddragon.leagueoflegends.com/cdn/{version}/data/en_US/{file}.json"
+    response = requests.get(url)
+    
+    return response.json()
     
     
 def get_latest_static_files(download_path, extract_path, version):
@@ -30,5 +37,16 @@ def get_latest_static_files(download_path, extract_path, version):
         with open(download_path) as f:
             for chunk in response.iter_content(chunk_size=8192):
                 f.write(chunk)
+                
+        print("Data saved to", download_path)
+        
+        with tarfile.open(download_path, "r:gz") as tar:
+            tar.extractall(extract_path)
+            
         print("Data saved to", extract_path)
-        return response.json()
+        
+        
+        
+if __name__ == "__main__":
+    version = "14.10.1"
+    print(get_tft_json(version, "tft-augments"))
