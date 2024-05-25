@@ -3,8 +3,9 @@ import json, requests, os, sys
 sys.path.append("C:/Users/jtyax/Desktop/git/tft-roulette/src")
 
 from utils.ddragon_utils import get_tft_json, get_latest_static_files
-
 from utils.cdragon_utils import get_cdragon_data
+
+
 
 class TFTUpdater:
     """
