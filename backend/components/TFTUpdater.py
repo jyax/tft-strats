@@ -3,7 +3,7 @@ import json, requests, os, sys
 sys.path.append("C:/Users/jtyax/Desktop/git/tft-roulette/src")
 
 from utils.ddragon_utils import get_tft_json, get_latest_static_files
-from utils.cdragon_utils import get_cdragon_data
+from utils.cdragon_utils import get_region_data, get_character_data
 
 
 
@@ -23,27 +23,7 @@ class TFTUpdater:
         self.extract_path = paths["extract_path"]
         
         self.game_version = self.get_latest_game_version()
-        self.file_names = self.get_all_names()
-
-
-    def update(self):
-        """
-        Updates TFT data.
-        """
-        
-        # Get the latest static files
-        #static_files = get_latest_static_files(game_version)
-
-        files = ['tft-augments', 'tft-champion', 'tft-item', 'tft-region-portals', 'tft-trait', 
-                 'tft-arena', 'tft-hero-augments', 'tft-queues', 'tft-regalia', 'tft-tactician']
-        
-        for file in files:
-            print(f"Updating {file} for version {self.game_version}")
-            self.save_json_data(get_tft_json(self.game_version, file), self.data_path + "jsons/" + file + '.json')
-        
-        # Save the latest static files
-        #for file_name, file_data in static_files.items():
-        #    self.save_json_data(file_data, f"{self.data_path}/{file_name}.json")
+        self.file_names = self.get_all_file_paths()
 
 
     def get_latest_game_version(self):
@@ -57,6 +37,28 @@ class TFTUpdater:
         url = "https://ddragon.leagueoflegends.com/api/versions.json"
         response = requests.get(url)
         return response.json()[0]
+        
+        
+    def update(self):
+        """
+        Updates TFT data.
+        """
+        
+        # Get the latest static files
+        #static_files = get_latest_static_files(game_version)
+
+        files = ['tft-augments', 'tft-champion', 'tft-item', 'tft-region-portals', 'tft-trait', 
+                 'tft-hero-augments', 'tft-queues', 'tft-regalia', 'tft-tactician']
+        
+        for file in files:
+            print(f"Updating {file} for version {self.game_version}")
+            self.save_json_data(get_tft_json(self.game_version, file), self.data_path + file + '.json')
+        self.save_json_data(get_region_data(), self.data_path + "jsons/en_us.json")
+        self.save_json_data(get_character_data(), self.data_path + "jsons/characters.bin.json")
+        
+        # Save the latest static files
+        #for file_name, file_data in static_files.items():
+        #    self.save_json_data(file_data, f"{self.data_path}/{file_name}.json")
         
         
     def get_file_data(self, data_type, file_name):
@@ -90,9 +92,9 @@ class TFTUpdater:
         print("Data saved to", filename)
         
         
-    def get_all_names(self):
+    def get_all_file_paths(self):
         """
-        Gets all TFT data types from current saved data.
+        Gets all TFT data types from current saved data and provide paths.
 
         Returns:
             dict: JSON data fetched from current data.
