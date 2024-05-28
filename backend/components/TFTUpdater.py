@@ -36,8 +36,11 @@ class TFTUpdater:
         
         url = "https://ddragon.leagueoflegends.com/api/versions.json"
         response = requests.get(url)
-        return response.json()[0]
-        
+        if response.status_code == 200:
+            return response.json()[0]
+        else:
+            with open("../../data/versions.json", 'r') as f:
+                return json.load(f)[0]
         
     def update(self):
         """
@@ -53,8 +56,8 @@ class TFTUpdater:
         for file in files:
             print(f"Updating {file} for version {self.game_version}")
             self.save_json_data(get_tft_json(self.game_version, file), self.data_path + file + '.json')
-        self.save_json_data(get_region_data(), self.data_path + "jsons/en_us.json")
-        self.save_json_data(get_character_data(), self.data_path + "jsons/characters.bin.json")
+        self.save_json_data(get_region_data(), self.data_path + "en_us.json")
+        self.save_json_data(get_character_data(), self.data_path + "characters.bin.json")
         
         # Save the latest static files
         #for file_name, file_data in static_files.items():
@@ -101,8 +104,9 @@ class TFTUpdater:
         """
         file_names = {}
         for root, dirs, files in os.walk(self.data_path):
-            for file_name in files:
-                file_path = os.path.join(root, file_name)
+            for file in files:
+                file_name = file.split('.')[0]
+                file_path = os.path.join(root, file)
                 file_names[file_name] = file_path
         return file_names
     

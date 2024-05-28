@@ -1,9 +1,6 @@
 import toml, os
 from components.TFTRoulette import TFTRoulette
 
-# Load Config
-
-
 
 def main():
     """
@@ -27,7 +24,11 @@ def main():
     game_version = tftr.game_version
     print(f"Current Game Version: {game_version}")
     
-    tftr.get_files()
+    data = tftr.get_current_data()
+    # Add a check to see if current files are up-to-date
+    #tftr.get_files()
+
 
 if __name__ == "__main__":
     main()
+    

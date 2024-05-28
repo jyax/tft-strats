@@ -17,7 +17,7 @@ class TFTScheduler:
         pass
 
 
-    def scheduler(self):
+    def start(self):
         """
         Schedules TFT data updates.
         """
