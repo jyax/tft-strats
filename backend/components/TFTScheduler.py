@@ -1,6 +1,6 @@
 import time
 from threading import Timer
-from TFTUpdater import TFTUpdater
+from components.TFTUpdater import TFTUpdater
 
 
 class TFTScheduler:
@@ -9,12 +9,12 @@ class TFTScheduler:
     """
 
 
-    def __init__(self):
+    def __init__(self, paths):
         """
         Initializes the TFTScheduler class.
         """
         
-        pass
+        self.paths = paths
 
 
     def start(self):
@@ -23,7 +23,7 @@ class TFTScheduler:
         """
         
         # Create an instance of TFTUpdater
-        updater = TFTUpdater()
+        updater = TFTUpdater(paths=self.paths)
 
         # Call the update function initially
         updater.update()

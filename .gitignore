@@ -1,5 +1,10 @@
+# IDE files
 .idea
 .vscode
+
+# Config files
 config.toml
-./backend/__pycache__
-./backend/utils/__pycache__
+
+# Byte-compile / optimized / DLL files
+__pycache__/
+*.py[cod]

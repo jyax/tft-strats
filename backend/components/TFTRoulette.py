@@ -1,5 +1,4 @@
 import requests, json
-from riotwatcher import TftWatcher
 
 from .TFTUpdater import TFTUpdater
 
@@ -12,9 +11,8 @@ Returns:
 class TFTRoulette:
     
     
-    def __init__(self, api_key, paths):
+    def __init__(self, paths):
         
-        self.tft_api = TftWatcher(api_key)
         self.updater = TFTUpdater(paths=paths)
         
         self.game_version = self.updater.game_version

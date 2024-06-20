@@ -1,5 +1,6 @@
 import toml, os
 from components.TFTRoulette import TFTRoulette
+from components.TFTScheduler import TFTScheduler
 
 
 def main():
@@ -19,7 +20,12 @@ def main():
     cfg = toml.load("./config.toml")
     riot_api_key = cfg["api"]["riot_api_key"]
     
-    tftr = TFTRoulette(api_key=riot_api_key, paths=paths)
+    current_set = cfg["data"]["current_set"]
+    game_version = cfg["data"]["game_version"]
+    patch_version = cfg["data"]["patch_version"]
+    
+    tftr = TFTRoulette(paths=paths)
+    tfts = TFTScheduler(paths=paths)
     
     game_version = tftr.game_version
     print(f"Current Game Version: {game_version}")
