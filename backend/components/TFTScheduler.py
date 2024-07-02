@@ -1,6 +1,6 @@
 import time
 from threading import Timer
-from components.TFTUpdater import TFTUpdater
+from backend.components import TFTUpdater
 
 
 class TFTScheduler:
