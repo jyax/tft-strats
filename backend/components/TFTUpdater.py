@@ -1,9 +1,8 @@
-import json, requests, os, sys
+import json, requests, os
 
-sys.path.append("C:/Users/jtyax/Desktop/git/tft-roulette/src")
 
-from utils.ddragon_utils import get_tft_json, get_latest_static_files
-from utils.cdragon_utils import get_region_data, get_character_data
+from backend.utils.ddragon_utils import get_tft_json, get_latest_static_files
+from backend.utils.cdragon_utils import get_region_data, get_character_data
 
 
 

@@ -1,8 +1,8 @@
 import requests, json
 
-from .TFTUpdater import TFTUpdater
+from backend.components.TFTUpdater import TFTUpdater
 
-"""
+"""so
 TFT Roulette: Random TFT Strategy Generator
 
 Returns:
